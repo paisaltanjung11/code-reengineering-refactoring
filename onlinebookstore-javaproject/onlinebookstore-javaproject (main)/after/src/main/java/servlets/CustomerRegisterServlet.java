@@ -32,14 +32,11 @@ public class CustomerRegisterServlet extends HttpServlet {
         res.setContentType(BookStoreConstants.CONTENT_TYPE_TEXT_HTML);
 
         try {
-            // Get user registration details
             User user = collectUserDetails(req);
             
-            // Register the user
             String respCode = userService.register(UserRole.CUSTOMER, user);
             logger.info("Registration response: " + respCode);
             
-            // Handle registration response
             handleRegistrationResponse(req, res, pw, respCode);
         } catch (NumberFormatException e) {
             logger.log(Level.WARNING, "Invalid phone number format", e);
@@ -50,9 +47,7 @@ public class CustomerRegisterServlet extends HttpServlet {
         }
     }
     
-    /**
-     * Collect user details from request parameters
-     */
+
     private User collectUserDetails(HttpServletRequest req) {
         String pWord = req.getParameter(UsersDBConstants.COLUMN_PASSWORD);
         String fName = req.getParameter(UsersDBConstants.COLUMN_FIRSTNAME);
@@ -72,9 +67,7 @@ public class CustomerRegisterServlet extends HttpServlet {
         return user;
     }
     
-    /**
-     * Handle the registration response
-     */
+
     private void handleRegistrationResponse(HttpServletRequest req, HttpServletResponse res, PrintWriter pw, String respCode) 
             throws ServletException, IOException {
         if (ResponseCode.SUCCESS.name().equalsIgnoreCase(respCode)) {
@@ -85,10 +78,7 @@ public class CustomerRegisterServlet extends HttpServlet {
             showErrorPage(req, res, pw, respCode);
         }
     }
-    
-    /**
-     * Show error page with custom message
-     */
+
     private void showErrorPage(HttpServletRequest req, HttpServletResponse res, PrintWriter pw, String errorMessage) 
             throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher("CustomerRegister.html");

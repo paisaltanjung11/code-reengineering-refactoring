@@ -52,7 +52,6 @@ public class UpdateBookServlet extends HttpServlet {
                             "<table class=\"tab\"><tr><td>Book Detail Updated Successfully!</td></tr></table>");
                 } else {
                     pw.println("<table class=\"tab\"><tr><td>Failed to Update Book!!</td></tr></table>");
-                    // rd.include(req, res);
                 }
 
                 return;

@@ -17,14 +17,10 @@ import com.bittercode.service.BookService;
 import com.bittercode.service.impl.BookServiceImpl;
 import com.bittercode.util.StoreUtil;
 
-/**
- * Servlet for displaying available books to customers
- * Extends BaseServlet to leverage common functionality
- */
+
 public class ViewBookServlet extends BaseServlet {
     private static final Logger logger = Logger.getLogger(ViewBookServlet.class.getName());
 
-    // book service for database operations and logics
     BookService bookService = new BookServiceImpl();
 
     @Override
@@ -58,9 +54,6 @@ public class ViewBookServlet extends BaseServlet {
         return "books";
     }
     
-    /**
-     * Renders the header section of the book list page
-     */
     private void renderBookListHeader(PrintWriter pw) {
         pw.println("<div id='topmid' style='background-color:grey'>Available Books"
                 + "<form action=\"cart\" method=\"post\" style='float:right; margin-right:20px'>"
@@ -70,18 +63,13 @@ public class ViewBookServlet extends BaseServlet {
                 + "        <div class=\"card-columns\">");
     }
     
-    /**
-     * Renders all books in the catalog
-     */
     private void renderBooks(HttpSession session, List<Book> books, PrintWriter pw) {
         for (Book book : books) {
             pw.println(createBookCard(session, book));
         }
     }
     
-    /**
-     * Renders the checkout button at the bottom of the page
-     */
+
     private void renderCheckoutButton(PrintWriter pw) {
         pw.println("</div>"
                 + "<div style='float:auto'><form action=\"cart\" method=\"post\">"
@@ -133,19 +121,13 @@ public class ViewBookServlet extends BaseServlet {
                 + "            </div>";
     }
     
-    /**
-     * Gets the quantity of a book in the cart
-     */
     private int getCartItemQuantity(HttpSession session, String bookId) {
         if (session.getAttribute("qty_" + bookId) != null) {
             return (int) session.getAttribute("qty_" + bookId);
         }
         return 0;
     }
-    
-    /**
-     * Creates the HTML for the inventory status message
-     */
+
     private String createInventoryStatusHtml(int quantity) {
         if (quantity < 20) {
             return "<br><span class=\"text-danger\">Only " + quantity + " items left</span>\r\n";
@@ -154,9 +136,7 @@ public class ViewBookServlet extends BaseServlet {
         }
     }
     
-    /**
-     * Creates the appropriate action button based on inventory and cart status
-     */
+
     private String createActionButton(String bookId, int inventoryQty, int cartQty) {
         if (inventoryQty <= 0) {
             return "<p class=\"btn btn-danger\">Out Of Stock</p>\r\n";

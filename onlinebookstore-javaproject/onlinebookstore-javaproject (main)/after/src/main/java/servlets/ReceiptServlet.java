@@ -80,7 +80,7 @@ public class ReceiptServlet extends HttpServlet {
                 }
             }
             pw.println("</table><br/><div class='tab'>Total Paid Amount: " + total + "</div>");
-//            String fPay = req.getParameter("f_pay");
+
         } catch (Exception e) {
             e.printStackTrace();
         }

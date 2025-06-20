@@ -18,14 +18,13 @@ import com.bittercode.util.StoreUtil;
 
 public class StoreBookServlet extends HttpServlet {
 
-    // book service for database operations and logics
+
     BookService bookService = new BookServiceImpl();
 
     public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType("text/html");
 
-        // Check if the customer is logged in, or else return to login page
         if (!StoreUtil.isLoggedIn(UserRole.SELLER, req.getSession())) {
             RequestDispatcher rd = req.getRequestDispatcher("SellerLogin.html");
             rd.include(req, res);
@@ -33,18 +32,11 @@ public class StoreBookServlet extends HttpServlet {
             return;
         }
         try {
-
-            // Add/Remove Item from the cart if requested
-            // store the comma separated bookIds of cart in the session
-            // StoreUtil.updateCartItems(req);
-
             RequestDispatcher rd = req.getRequestDispatcher("SellerHome.html");
             rd.include(req, res);
             pw.println("<div class='container'>");
-            // Set the active tab as cart
             StoreUtil.setActiveTab(pw, "storebooks");
 
-            // Read the books from the database with the respective bookIds
             List<Book> books = bookService.getAllBooks();
             pw.println("<div id='topmid' style='background-color:grey'>Books Available In the Store</div>");
             pw.println("<table class=\"table table-hover\" style='background-color:white'>\r\n"

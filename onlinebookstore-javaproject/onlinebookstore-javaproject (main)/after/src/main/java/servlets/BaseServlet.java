@@ -20,14 +20,7 @@ import com.bittercode.service.impl.BookServiceImpl;
 import com.bittercode.service.impl.UserServiceImpl;
 import com.bittercode.util.StoreUtil;
 
-/**
- * Base Servlet class implementing Template Method pattern
- * Provides common functionality for all servlets including:
- * - Authentication and authorization
- * - Standard request processing flow
- * - Error handling
- * - Service access
- */
+
 public abstract class BaseServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(BaseServlet.class.getName());
     
@@ -39,10 +32,7 @@ public abstract class BaseServlet extends HttpServlet {
         this.userService = new UserServiceImpl();
     }
     
-    /**
-     * Template method for processing requests
-     * Defines the standard flow for all servlet requests
-     */
+
     protected void processRequest(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         PrintWriter pw = res.getWriter();
         res.setContentType(BookStoreConstants.CONTENT_TYPE_TEXT_HTML);
@@ -99,10 +89,7 @@ public abstract class BaseServlet extends HttpServlet {
         pw.println("<table class=\"tab\"><tr><td>Please Login First to Continue!!</td></tr></table>");
     }
     
-    /**
-     * Includes header and menu in the response
-     * Sets the active tab based on current servlet
-     */
+
     protected void includeHeaderAndMenu(HttpServletRequest req, HttpServletResponse res, PrintWriter pw) 
             throws ServletException, IOException {
         UserRole role = getRequiredRole();
@@ -116,9 +103,6 @@ public abstract class BaseServlet extends HttpServlet {
         }
     }
     
-    /**
-     * Handles exceptions by forwarding to error handler
-     */
     protected void handleError(HttpServletRequest req, HttpServletResponse res, PrintWriter pw, Exception e) 
             throws ServletException, IOException {
         logger.log(Level.SEVERE, "Error in servlet", e);
@@ -128,16 +112,12 @@ public abstract class BaseServlet extends HttpServlet {
         rd.forward(req, res);
     }
     
-    /**
-     * Returns the book service instance
-     */
+
     protected BookService getBookService() {
         return this.bookService;
     }
     
-    /**
-     * Returns the user service instance
-     */
+
     protected UserService getUserService() {
         return this.userService;
     }

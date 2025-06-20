@@ -26,7 +26,6 @@ public class LogoutServlet extends HttpServlet {
 
             RequestDispatcher rd = req.getRequestDispatcher("CustomerLogin.html");
             rd.include(req, res);
-//            StoreUtil.setActiveTab(pw, "logout");
             if (logout) {
                 pw.println("<table class=\"tab\"><tr><td>Successfully logged out!</td></tr></table>");
             }

@@ -17,10 +17,7 @@ import com.bittercode.model.Cart;
 import com.bittercode.model.UserRole;
 import com.bittercode.util.StoreUtil;
 
-/**
- * Servlet for managing shopping cart functionality
- * Handles displaying, adding, and removing items from cart
- */
+
 public class CartServlet extends BaseServlet {
     private static final Logger logger = Logger.getLogger(CartServlet.class.getName());
 
@@ -51,18 +48,14 @@ public class CartServlet extends BaseServlet {
         }
     }
     
-    /**
-     * Gets comma-separated book IDs from session
-     */
+
     private String getBookIdsFromSession(HttpSession session) {
         return session.getAttribute("items") != null 
                 ? (String) session.getAttribute("items") 
                 : "";
     }
     
-    /**
-     * Renders the cart header
-     */
+ 
     private void renderCartHeader(PrintWriter pw) {
         pw.println("<div id='topmid' style='background-color:grey'>Shopping Cart</div>");
         pw.println("<table class=\"table table-hover\" style='background-color:white'>\r\n"
@@ -102,7 +95,6 @@ public class CartServlet extends BaseServlet {
             pw.println(createCartItemRow(cart));
         }
         
-        // Store cart data in session for checkout
         session.setAttribute("cartItems", cartItems);
         session.setAttribute("amountToPay", amountToPay);
         
@@ -112,10 +104,7 @@ public class CartServlet extends BaseServlet {
         
         return amountToPay;
     }
-    
-    /**
-     * Creates HTML for the total amount row
-     */
+
     private String createTotalAmountRow(double amount) {
         return "    <tr style='background-color:green'>\r\n"
                 + "      <th scope=\"row\" colspan='5' style='color:yellow; text-align:center;'> Total Amount To Pay </th>\r\n"
@@ -125,9 +114,7 @@ public class CartServlet extends BaseServlet {
                 + "    </tr>\r\n";
     }
     
-    /**
-     * Renders the checkout button section
-     */
+
     private void renderCheckoutSection(double amountToPay, PrintWriter pw) {
         pw.println("  </tbody>\r\n" + "</table>");
         
@@ -150,9 +137,7 @@ public class CartServlet extends BaseServlet {
         return "cart";
     }
 
-    /**
-     * Creates HTML for a cart item row
-     */
+
     private String createCartItemRow(Cart cart) {
         Book book = cart.getBook();
         return "    <tr>\r\n"

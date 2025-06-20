@@ -21,7 +21,6 @@ public class ErrorHandlerServlet extends HttpServlet {
         PrintWriter pw = res.getWriter();
         res.setContentType("text/html");
 
-        // Fetch the exceptions
         Throwable throwable = (Throwable) req.getAttribute("javax.servlet.error.exception");
         Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
         String servletName = (String) req.getAttribute("javax.servlet.error.servlet_name");

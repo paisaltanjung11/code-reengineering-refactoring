@@ -58,9 +58,9 @@ public class BuyBooksServlet extends HttpServlet {
                 String q = "qty" + Integer.toString(i);
                 pw.println("<tr>\r\n" +
                         "				<td>\r\n" +
-                        "					<input type=\"checkbox\" name=" + n + " value=\"pay\">\r\n" + // Value is
-                                                                                                          // made equal
-                                                                                                          // to bcode
+                        "					<input type=\"checkbox\" name=" + n + " value=\"pay\">\r\n" + 
+                                                                                                          
+                                                                                                          
                         "				</td>");
                 pw.println("<td>" + bCode + "</td>");
                 pw.println("<td>" + bName + "</td>");
@@ -73,8 +73,6 @@ public class BuyBooksServlet extends HttpServlet {
             pw.println("</table>\r\n" + "<input type=\"submit\" value=\" PAY NOW \">" + "<br/>" +
                     "	</form>\r\n" +
                     "	</div>");
-            // pw.println("<div class=\"tab\"><a href=\"AddBook.html\">Add More
-            // Books</a></div>");
         } catch (Exception e) {
             e.printStackTrace();
         }

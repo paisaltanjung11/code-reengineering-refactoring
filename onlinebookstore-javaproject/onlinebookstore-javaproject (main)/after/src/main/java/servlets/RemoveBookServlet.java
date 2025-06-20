@@ -17,10 +17,7 @@ import com.bittercode.service.BookService;
 import com.bittercode.service.impl.BookServiceImpl;
 import com.bittercode.util.StoreUtil;
 
-/**
- * Servlet for removing books from the inventory
- * Only accessible by sellers
- */
+
 public class RemoveBookServlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(RemoveBookServlet.class.getName());
     private BookService bookService = new BookServiceImpl();
@@ -29,7 +26,6 @@ public class RemoveBookServlet extends HttpServlet {
         PrintWriter pw = res.getWriter();
         res.setContentType("text/html");
         
-        // Validate seller login
         if (!StoreUtil.isLoggedIn(UserRole.SELLER, req.getSession())) {
             handleNotLoggedIn(req, res, pw);
             return;
@@ -42,13 +38,11 @@ public class RemoveBookServlet extends HttpServlet {
             StoreUtil.setActiveTab(pw, "removebook");
             pw.println("<div class='container'>");
             
-            // If no book ID provided, show the form
             if (bookId == null || bookId.trim().isEmpty()) {
                 showRemoveBookForm(pw);
                 return;
             } 
             
-            // Process book removal
             processRemoveBook(bookId.trim(), pw);
             
             pw.println("</div>");
@@ -78,34 +72,25 @@ public class RemoveBookServlet extends HttpServlet {
         }
     }
     
-    /**
-     * Show success message after book removal
-     */
+
     private void showSuccessMessage(PrintWriter pw) {
         pw.println("<table class=\"tab my-5\"><tr><td>Book Removed Successfully</td></tr></table>");
         pw.println("<table class=\"tab\"><tr><td><a href=\"removebook\">Remove more Books</a></td></tr></table>");
     }
     
-    /**
-     * Show not found message if book doesn't exist
-     */
+
     private void showNotFoundMessage(PrintWriter pw) {
         pw.println("<table class=\"tab my-5\"><tr><td>Book Not Available In The Store</td></tr></table>");
         pw.println("<table class=\"tab\"><tr><td><a href=\"removebook\">Remove more Books</a></td></tr></table>");
     }
-    
-    /**
-     * Handle case when user is not logged in
-     */
+
     private void handleNotLoggedIn(HttpServletRequest req, HttpServletResponse res, PrintWriter pw) throws ServletException, IOException {
         RequestDispatcher rd = req.getRequestDispatcher("SellerLogin.html");
         rd.include(req, res);
         pw.println("<table class=\"tab\"><tr><td>Please Login First to Continue!!</td></tr></table>");
     }
 
-    /**
-     * Display the remove book form
-     */
+
     private static void showRemoveBookForm(PrintWriter pw) {
         String form = "<form action=\"removebook\" method=\"post\" class='my-5'>\r\n"
                 + "        <table class=\"tab\">\r\n"
